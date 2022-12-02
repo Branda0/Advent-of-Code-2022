@@ -3,9 +3,9 @@ const fs = require("fs");
 function getCaloriesData() {
   const caloriesRawData = fs.readFileSync("input.txt", "utf8");
 
-  const test = caloriesRawData.split("\n\n");
+  const groupLines = caloriesRawData.split("\n\n");
 
-  return test.map((string) => string.split("\n"));
+  return groupLines.map((group) => group.split("\n"));
 }
 
 function resolve(n) {

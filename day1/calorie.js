@@ -8,19 +8,24 @@ function getCaloriesData() {
   return test.map((string) => string.split("\n"));
 }
 
-function resolve(data) {
-  let result = 0;
+function resolve(n) {
+  let result = [];
+  const data = getCaloriesData();
+
   for (let i = 0; i < data.length; i++) {
     let temp = 0;
     for (let j = 0; j < data[i].length; j++) {
       temp += +data[i][j];
     }
-    if (temp > result) result = temp;
-    console.log("temp : ", temp, " result : ", result);
+    result.push(temp);
   }
-  return result;
+  result.sort((a, b) => a - b);
+
+  return result.slice(-n).reduce((a, b) => a + b);
 }
 
-const caloriesData = getCaloriesData();
+// Puzzle 1
+console.log(resolve(1));
 
-console.log(resolve(caloriesData));
+// Puzzle 2
+console.log(resolve(3));

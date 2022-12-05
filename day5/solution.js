@@ -1,28 +1,28 @@
 const fs = require("fs");
 
 function getInputs(file) {
-  const [stackInputs, moveInputs] = fs.readFileSync(file, "utf8").split("\n\n");
+  const [stackInputs, moveInputs] = fs
+    .readFileSync(file, "utf8")
+    .split("\n\n")
+    .map((elt) => elt.split("\n"));
 
-  const moves = moveInputs.split("\n").map((line) => line.match(/\d+/g).map(Number));
-  const stacksLines = stackInputs.split("\n");
-  stacksLines.pop(); // remove stacks id
-  stacksLines.reverse(); // reverse array to prioritize push over unshift in rest of code
+  const moves = moveInputs.map((line) => line.match(/\d+/g).map(Number));
+  //
+
+  const parsedStacks = stackInputs.map((line) => [...line].filter((line, index) => index % 4 === 1));
+  parsedStacks.pop(); // remove stacks id
+  parsedStacks.reverse(); // reverse array to prioritize push over unshift in rest of code
 
   let stacks = [];
-  let length = stacksLines[0].length;
 
-  // line data : "[Z] [M] [P]"  -> only check values at pos 1 , 5 , 9 , 13 ...
-  for (let charIndex = 1; charIndex < length; charIndex += 4) {
-    let col = [];
-
-    for (line in stacksLines) {
-      if (stacksLines[line][charIndex] !== " ") {
-        col.push(stacksLines[line][charIndex]);
+  for (line of parsedStacks) {
+    for ([index, crate] of line.entries()) {
+      if (crate !== " ") {
+        if (!stacks[index]) stacks[index] = []; //initialize empty array if not yet accessible
+        stacks[index].push(crate);
       }
     }
-    stacks.push(col);
   }
-
   return [stacks, moves];
 }
 

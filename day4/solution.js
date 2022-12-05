@@ -11,12 +11,12 @@ function resolve1() {
 
   for (pairs of assignments) {
     const [assignment1, assignment2] = pairs.split(",");
-    const [sectionStart1, sectionEnd1] = assignment1.split("-");
-    const [sectionStart2, sectionEnd2] = assignment2.split("-");
+    const [sectionStart1, sectionEnd1] = assignment1.split("-").map(Number);
+    const [sectionStart2, sectionEnd2] = assignment2.split("-").map(Number);
 
     if (
-      (+sectionStart1 <= +sectionStart2 && +sectionEnd1 >= +sectionEnd2) ||
-      (+sectionStart1 >= +sectionStart2 && +sectionEnd1 <= +sectionEnd2)
+      (sectionStart1 <= sectionStart2 && sectionEnd1 >= sectionEnd2) ||
+      (sectionStart1 >= sectionStart2 && sectionEnd1 <= sectionEnd2)
     ) {
       fullyContainedPairs++;
     }
@@ -31,10 +31,10 @@ function resolve2() {
 
   for (pairs of assignments) {
     const [assignment1, assignment2] = pairs.split(",");
-    const [sectionStart1, sectionEnd1] = assignment1.split("-");
-    const [sectionStart2, sectionEnd2] = assignment2.split("-");
+    const [sectionStart1, sectionEnd1] = assignment1.split("-").map(Number);
+    const [sectionStart2, sectionEnd2] = assignment2.split("-").map(Number);
 
-    if (+sectionStart1 <= sectionEnd2 && +sectionEnd1 >= +sectionStart2) {
+    if (sectionStart1 <= sectionEnd2 && sectionEnd1 >= sectionStart2) {
       overlapping++;
     }
   }

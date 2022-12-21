@@ -36,8 +36,6 @@ function puzzle1() {
         (index_to_moove + encrypted_lines[index_to_moove].value) % (size - 1)
       );
     }
-
-    encrypted_lines.move(index_to_moove, index_to_moove + encrypted_lines[index_to_moove].value);
   }
 
   let index_value_0 = encrypted_lines.findIndex((line) => line.value === 0);
